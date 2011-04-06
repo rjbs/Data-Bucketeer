@@ -17,22 +17,22 @@ sub buck_ok {
       my $this_expect = $expect->{$input};
 
       if (ref $this_expect and ref $this_expect eq 'ARRAY') {
-        my ($bound, $label) = @{ $expect->{$input} };
-        my $label_str = defined $label ? $label : '(undef)';
+        my ($bound, $result) = @{ $expect->{$input} };
+        my $result_str = defined $result ? $result : '(undef)';
 
         is(
-          $buck->label_for($input),
-          $label,
-          sprintf("%8s -> label %s", $input, $label_str),
+          $buck->result_for($input),
+          $result,
+          sprintf("%8s -> result %s", $input, $result_str),
         );
 
         is_deeply(
-          [ $buck->bound_and_label_for($input) ],
-          [ $bound, $label ],
-          sprintf("%8s -> bound and label", $input),
+          [ $buck->bound_and_result_for($input) ],
+          [ $bound, $result ],
+          sprintf("%8s -> bound and result", $input),
         );
       } else {
-        my $error = exception { $buck->label_for($input) };
+        my $error = exception { $buck->result_for($input) };
 
         if (! ref $this_expect and ! defined $this_expect) {
           is($error, $this_expect, "no exception for $input");
