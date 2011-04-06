@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 package Data::Bucketeer;
+# ABSTRACT: sort data into buckets based on threshholds
 
 use Carp qw(croak);
 use Scalar::Util ();
@@ -12,7 +13,8 @@ sub new {
 
   my ($type, $buckets) = @rest;
 
-  my @non_num = grep { ! Scalar::Util::looks_like_number($_) } keys %$buckets;
+  my @non_num = grep { ! Scalar::Util::looks_like_number($_) or /NaN/i }
+                keys %$buckets;
   croak "non-numeric bucket boundaries: @non_num" if @non_num;
 
   my $guts = bless {
