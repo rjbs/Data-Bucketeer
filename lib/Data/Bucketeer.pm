@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::Bucketeer;
-# ABSTRACT: sort data into buckets based on threshholds
+# ABSTRACT: sort data into buckets based on thresholds
 
 use Carp qw(croak);
 use Scalar::Util ();
